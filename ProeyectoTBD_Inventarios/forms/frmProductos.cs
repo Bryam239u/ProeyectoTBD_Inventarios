@@ -10,23 +10,22 @@ using System.Windows.Forms;
 
 namespace ProeyectoTBD_Inventarios.forms
 {
-    public partial class frmMenu : Form
+    public partial class frmProductos : Form
     {
-        public frmMenu()
+        public frmProductos()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
-            frmAlmacen almacen = new frmAlmacen();
-            almacen.ShowDialog();
+            this.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            frmProductos productos = new frmProductos();
-            productos.ShowDialog();
+            frmAgregarProductos agregarProductos = new frmAgregarProductos();
+            agregarProductos.ShowDialog();
         }
     }
 }
