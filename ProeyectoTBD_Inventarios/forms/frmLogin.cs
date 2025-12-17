@@ -1,4 +1,5 @@
 ﻿using ProeyectoTBD_Inventarios.clases;
+using ProeyectoTBD_Inventarios.forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,6 +44,12 @@ namespace ProeyectoTBD_Inventarios
         private void button1_Click_1(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            frmRegistro registro = new frmRegistro();
+            registro.ShowDialog();
         }
     }
 }

@@ -16,5 +16,10 @@ namespace ProeyectoTBD_Inventarios.forms
         {
             InitializeComponent();
         }
+
+        private void btVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
