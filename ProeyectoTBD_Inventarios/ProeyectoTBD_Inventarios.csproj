@@ -83,10 +83,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Categorias.cs">
+    <Compile Include="Form\DetalleMovimiento.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Categorias.Designer.cs">
+    <Compile Include="Form\DetalleMovimiento.Designer.cs">
+      <DependentUpon>DetalleMovimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Categorias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Categorias.Designer.cs">
       <DependentUpon>Categorias.cs</DependentUpon>
     </Compile>
     <Compile Include="clases\data.cs" />
@@ -98,13 +104,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registro.cs">
+    <Compile Include="Form\Registro.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro.Designer.cs">
+    <Compile Include="Form\Registro.Designer.cs">
       <DependentUpon>Registro.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Categorias.resx">
+    <EmbeddedResource Include="Form\DetalleMovimiento.resx">
+      <DependentUpon>DetalleMovimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Categorias.resx">
       <DependentUpon>Categorias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
@@ -119,7 +128,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Registro.resx">
+    <EmbeddedResource Include="Form\Registro.resx">
       <DependentUpon>Registro.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Oracle.DataAccess.Common.Configuration.Section.xsd">
