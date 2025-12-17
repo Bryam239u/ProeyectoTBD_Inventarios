@@ -90,6 +90,12 @@
     <Compile Include="forms\formsAuxiliares\frmAgregarAlmacen.Designer.cs">
       <DependentUpon>frmAgregarAlmacen.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\formsAuxiliares\frmAgregarMovimientos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\formsAuxiliares\frmAgregarMovimientos.Designer.cs">
+      <DependentUpon>frmAgregarMovimientos.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\frmAlmacen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,12 @@
     </Compile>
     <Compile Include="forms\formsAuxiliares\frmAgregarProductos.Designer.cs">
       <DependentUpon>frmAgregarProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\frmMovimientos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmMovimientos.Designer.cs">
+      <DependentUpon>frmMovimientos.cs</DependentUpon>
     </Compile>
     <Compile Include="forms\frmProductos.cs">
       <SubType>Form</SubType>
