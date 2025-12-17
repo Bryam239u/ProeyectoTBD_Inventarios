@@ -18,6 +18,18 @@ namespace ProeyectoTBD_Inventarios.forms
             InitializeComponent();
         }
 
+        private void CargarTabla()
+        {
+            // 1. Instanciar la clase
+            ProeyectoTBD_Inventarios.clases.data db = new ProeyectoTBD_Inventarios.clases.data();
+
+            // 2. Obtener datos
+            DataTable dtAlmacenes = db.ObtenerAlmacenes();
+
+            // 3. Asignar al DataGridView
+            dataGridView1.DataSource = dtAlmacenes;
+        }
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -27,6 +39,11 @@ namespace ProeyectoTBD_Inventarios.forms
         {
             frmAgregarAlmacen agregarAlmacen = new frmAgregarAlmacen();
             agregarAlmacen.ShowDialog();
+        }
+
+        private void frmAlmacen_Load(object sender, EventArgs e)
+        {
+            CargarTabla();
         }
     }
 }

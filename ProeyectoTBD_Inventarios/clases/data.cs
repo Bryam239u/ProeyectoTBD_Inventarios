@@ -302,5 +302,68 @@ namespace ProeyectoTBD_Inventarios.clases
             }
         }
 
+        public string InsertarAlmacen(string nombre, string ubicacion, int activo)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    // Query de inserción. No insertamos IdAlmacen porque es IDENTITY (automático)
+                    string sql = "INSERT INTO Almacenes (Nombre, Ubicacion, Activo) VALUES (:Nombre, :Ubicacion, :Activo)";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        // BindByName es importante si el orden de parámetros llegara a cambiar
+                        cmd.BindByName = true;
+
+                        cmd.Parameters.Add("Nombre", OracleDbType.Varchar2).Value = nombre;
+                        cmd.Parameters.Add("Ubicacion", OracleDbType.Varchar2).Value = ubicacion;
+                        // Activo espera un número (1 o 0)
+                        cmd.Parameters.Add("Activo", OracleDbType.Int32).Value = activo;
+
+                        cmd.ExecuteNonQuery();
+                        return "OK";
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    return "Error Oracle: " + ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    return "Error General: " + ex.Message;
+                }
+            }
+        }
+
+        // METODO 2: Traer datos para la tabla (DataGridView)
+        public DataTable ObtenerAlmacenes()
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    // Seleccionamos todo. Usamos DECODE o CASE para que 'Activo' se lea bonito si quieres, 
+                    // o lo traemos crudo y lo formatea el DataGrid. Aquí lo traigo directo.
+                    string sql = "SELECT IdAlmacen, Nombre, Ubicacion, Activo FROM Almacenes ORDER BY IdAlmacen ASC";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            return dt;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    // En caso de error retornamos una tabla vacía para no romper el programa
+                    return new DataTable();
+                }
+            }
+        }
+
     }
 }
