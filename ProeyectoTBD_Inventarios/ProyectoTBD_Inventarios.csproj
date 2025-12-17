@@ -90,6 +90,12 @@
     <Compile Include="forms\formsAuxiliares\frmAgregarAlmacen.Designer.cs">
       <DependentUpon>frmAgregarAlmacen.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\formsAuxiliares\frmAgregarInventarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\formsAuxiliares\frmAgregarInventarios.Designer.cs">
+      <DependentUpon>frmAgregarInventarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\formsAuxiliares\frmAgregarMovimientos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,12 @@
     </Compile>
     <Compile Include="forms\frmAlmacen.Designer.cs">
       <DependentUpon>frmAlmacen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\frmInventarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmInventarios.Designer.cs">
+      <DependentUpon>frmInventarios.cs</DependentUpon>
     </Compile>
     <Compile Include="forms\frmLogin.cs">
       <SubType>Form</SubType>
@@ -143,11 +155,17 @@
     <EmbeddedResource Include="forms\formsAuxiliares\frmAgregarAlmacen.resx">
       <DependentUpon>frmAgregarAlmacen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forms\formsAuxiliares\frmAgregarInventarios.resx">
+      <DependentUpon>frmAgregarInventarios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\formsAuxiliares\frmAgregarMovimientos.resx">
       <DependentUpon>frmAgregarMovimientos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\frmAlmacen.resx">
       <DependentUpon>frmAlmacen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\frmInventarios.resx">
+      <DependentUpon>frmInventarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
