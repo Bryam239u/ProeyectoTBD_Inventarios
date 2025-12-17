@@ -128,11 +128,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="forms\formsAuxiliares\frmAgregarAlmacen.resx">
-      <DependentUpon>frmAgregarAlmacen.cs</DependentUpon>
+    <EmbeddedResource Include="forms\frmAgregarInventario.resx">
+      <DependentUpon>frmAgregarInventario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\frmAlmacen.resx">
-      <DependentUpon>frmAlmacen.cs</DependentUpon>
+    <EmbeddedResource Include="forms\frmInventario.resx">
+      <DependentUpon>frmInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
