@@ -158,5 +158,97 @@ namespace ProeyectoTBD_Inventarios.clases
                 }
             }
         }
+
+        // MÉTODO 1: Verificar si el usuario existe y la contraseña es correcta
+        // Retorna el IdUsuario si es correcto, o -1 si falla.
+        public int ValidarLogin(string username, string password)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    // Consultamos el ID si el usuario coincide, la pass coincide y el estado es 'A'ctivo
+                    string sql = "SELECT IdUsuario FROM Usuarios WHERE Username = :User AND PasswordHash = :Pass AND Estado = 'A'";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        cmd.Parameters.Add("User", OracleDbType.Varchar2).Value = username;
+                        cmd.Parameters.Add("Pass", OracleDbType.Varchar2).Value = password;
+
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null)
+                        {
+                            return Convert.ToInt32(result); // Login exitoso, retornamos ID
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    // Puedes loguear el error aquí si quieres
+                    return -1;
+                }
+                return -1; // Login fallido
+            }
+        }
+
+        // MÉTODO 2: Insertar la sesión y devolver el ID generado
+        public int RegistrarSesion(int idUsuario)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    // Obtenemos la IP local de la máquina
+                    string ipAddress = GetLocalIPAddress();
+
+                    // SQL con cláusula RETURNING para obtener el ID autogenerado al instante
+                    string sql = @"
+                    INSERT INTO Sesiones (IdUsuario, IpOrigen) 
+                    VALUES (:IdUser, :Ip) 
+                    RETURNING IdSesion INTO :IdSalida";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        cmd.Parameters.Add("IdUser", OracleDbType.Int32).Value = idUsuario;
+                        cmd.Parameters.Add("Ip", OracleDbType.Varchar2).Value = ipAddress;
+
+                        // Parámetro de salida para recibir el ID de la sesión
+                        OracleParameter outputParam = new OracleParameter("IdSalida", OracleDbType.Int32);
+                        outputParam.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(outputParam);
+
+                        cmd.ExecuteNonQuery();
+
+                        // Retornamos el valor recuperado
+                        return int.Parse(outputParam.Value.ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de error básico
+                    return 0;
+                }
+            }
+        }
+
+        // Función auxiliar para obtener IP (puedes ponerla privada dentro de data)
+        private string GetLocalIPAddress()
+        {
+            try
+            {
+                var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                {
+                    if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        return ip.ToString();
+                    }
+                }
+                return "127.0.0.1";
+            }
+            catch { return "Desconocida"; }
+        }
+
     }
 }

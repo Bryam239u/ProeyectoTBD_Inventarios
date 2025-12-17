@@ -51,5 +51,44 @@ namespace ProeyectoTBD_Inventarios
             frmRegistro registro = new frmRegistro();
             registro.ShowDialog();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // 1. Validar campos vacíos
+            if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
+            {
+                MessageBox.Show("Ingrese usuario y contraseña.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Instanciar tu clase data
+            data db = new data();
+
+            // 3. Validar credenciales
+            int idUsuario = db.ValidarLogin(textBox1.Text.Trim(), textBox2.Text);
+
+            if (idUsuario > 0)
+            {
+                // -- LOGIN CORRECTO --
+
+                // 4. Registrar la sesión en la BD
+                int idSesion = db.RegistrarSesion(idUsuario);
+
+                // IMPORTANTE: Guarda idSesion en una variable global o estática 
+                // para usarla cuando el usuario cierre el programa (Update FechaFin).
+                // Ejemplo: Program.SesionActualId = idSesion;
+
+                MessageBox.Show("Bienvenido al sistema.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // 5. Abrir el menú principal y cerrar login
+                // frmMenuPrincipal menu = new frmMenuPrincipal();
+                // menu.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Usuario o contraseña incorrectos.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
