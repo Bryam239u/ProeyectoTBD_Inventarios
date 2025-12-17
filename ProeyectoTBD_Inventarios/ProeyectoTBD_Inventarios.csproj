@@ -122,10 +122,10 @@
     <Compile Include="Form\Sesiones.Designer.cs">
       <DependentUpon>Sesiones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Usuarios.cs">
+    <Compile Include="Form\Usuarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Usuarios.Designer.cs">
+    <Compile Include="Form\Usuarios.Designer.cs">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form\DetalleMovimiento.resx">
@@ -155,7 +155,7 @@
     <EmbeddedResource Include="Form\Sesiones.resx">
       <DependentUpon>Sesiones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Usuarios.resx">
+    <EmbeddedResource Include="Form\Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Oracle.DataAccess.Common.Configuration.Section.xsd">
