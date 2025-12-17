@@ -557,5 +557,159 @@ namespace ProeyectoTBD_Inventarios.clases
                 }
             }
         }
+
+
+        // --- GESTIÓN DE DETALLES DE MOVIMIENTO ---
+
+        // Método 1: Insertar un ítem al movimiento
+        public string InsertarDetalle(int idMovimiento, int idProducto, int cantidad)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    // Validar restricción de la BD (Cantidad > 0)
+                    if (cantidad <= 0) return "La cantidad debe ser mayor a 0.";
+
+                    string sql = @"
+                INSERT INTO DetalleMovimiento (IdMovimiento, IdProducto, Cantidad) 
+                VALUES (:IdMov, :IdProd, :Cant)";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        cmd.Parameters.Add("IdMov", OracleDbType.Int32).Value = idMovimiento;
+                        cmd.Parameters.Add("IdProd", OracleDbType.Int32).Value = idProducto;
+                        cmd.Parameters.Add("Cant", OracleDbType.Int32).Value = cantidad;
+
+                        cmd.ExecuteNonQuery();
+                        return "OK";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return "Error al agregar ítem: " + ex.Message;
+                }
+            }
+        }
+
+        // Método 2: Ver los detalles de UN movimiento específico (para la tabla de la derecha)
+        public DataTable ObtenerDetallesPorMovimiento(int idMovimiento)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                // Hacemos JOIN con Productos para mostrar el Nombre en vez del ID
+                string sql = @"
+            SELECT 
+                d.IdDetalle,
+                p.Nombre AS Producto,
+                d.Cantidad
+            FROM DetalleMovimiento d
+            JOIN Productos p ON d.IdProducto = p.IdProducto
+            WHERE d.IdMovimiento = :IdMov
+            ORDER BY d.IdDetalle DESC";
+
+                using (OracleCommand cmd = new OracleCommand(sql, conn))
+                {
+                    cmd.Parameters.Add("IdMov", OracleDbType.Int32).Value = idMovimiento;
+
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        // --- GESTIÓN DE USUARIOS ---
+        public DataTable ObtenerUsuarios()
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                // Hacemos JOIN con la tabla Roles para traer el nombre del rol
+                string sql = @"
+            SELECT 
+                u.IdUsuario, 
+                u.Username, 
+                r.Nombre AS Rol, 
+                u.Estado, 
+                u.FechaCreacion
+            FROM Usuarios u
+            JOIN Roles r ON u.IdRol = r.IdRol
+            ORDER BY u.IdUsuario ASC";
+
+                using (OracleCommand cmd = new OracleCommand(sql, conn))
+                {
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        public DataTable ObtenerSesiones()
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                // Hacemos JOIN con Usuarios para ver el nombre de quien entró
+                string sql = @"
+            SELECT 
+                s.IdSesion, 
+                u.Username AS Usuario, 
+                s.FechaInicio, 
+                s.FechaFin, 
+                s.IpOrigen
+            FROM Sesiones s
+            JOIN Usuarios u ON s.IdUsuario = u.IdUsuario
+            ORDER BY s.FechaInicio DESC"; // Ordenado del más reciente al más antiguo
+
+                using (OracleCommand cmd = new OracleCommand(sql, conn))
+                {
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+
+        // --- GESTIÓN DE LOGS ---
+
+        public DataTable ObtenerLogs()
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                // Usamos LEFT JOIN: Si borran el producto, queremos seguir viendo el log
+                string sql = @"
+            SELECT 
+                l.IdLog, 
+                p.Nombre AS Producto, 
+                l.Accion, 
+                l.ValorAnterior, 
+                l.ValorNuevo, 
+                l.UsuarioDb, 
+                l.FechaLog
+            FROM LogProductos l
+            LEFT JOIN Productos p ON l.IdProducto = p.IdProducto
+            ORDER BY l.FechaLog DESC";
+
+                using (OracleCommand cmd = new OracleCommand(sql, conn))
+                {
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
     }
 }

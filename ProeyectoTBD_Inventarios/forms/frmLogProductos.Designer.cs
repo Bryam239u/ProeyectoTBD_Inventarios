@@ -31,9 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnVolver = new System.Windows.Forms.Button();
-            this.dgvLogProductos = new System.Windows.Forms.DataGridView();
+            this.dgvLogs = new System.Windows.Forms.DataGridView();
             this.lblTitulo = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLogProductos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLogs)).BeginInit();
             this.SuspendLayout();
             // 
             // btnVolver
@@ -51,14 +51,14 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // dgvLogProductos
+            // dgvLogs
             // 
-            this.dgvLogProductos.AllowUserToAddRows = false;
-            this.dgvLogProductos.AllowUserToDeleteRows = false;
-            this.dgvLogProductos.BackgroundColor = System.Drawing.Color.White;
-            this.dgvLogProductos.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvLogProductos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvLogProductos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvLogs.AllowUserToAddRows = false;
+            this.dgvLogs.AllowUserToDeleteRows = false;
+            this.dgvLogs.BackgroundColor = System.Drawing.Color.White;
+            this.dgvLogs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvLogs.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvLogs.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
@@ -66,8 +66,8 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvLogProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvLogProductos.ColumnHeadersHeight = 30;
+            this.dgvLogs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvLogs.ColumnHeadersHeight = 30;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -75,16 +75,16 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvLogProductos.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvLogProductos.EnableHeadersVisualStyles = false;
-            this.dgvLogProductos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.dgvLogProductos.Location = new System.Drawing.Point(30, 70);
-            this.dgvLogProductos.Name = "dgvLogProductos";
-            this.dgvLogProductos.ReadOnly = true;
-            this.dgvLogProductos.RowHeadersVisible = false;
-            this.dgvLogProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvLogProductos.Size = new System.Drawing.Size(670, 320);
-            this.dgvLogProductos.TabIndex = 4;
+            this.dgvLogs.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvLogs.EnableHeadersVisualStyles = false;
+            this.dgvLogs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.dgvLogs.Location = new System.Drawing.Point(30, 70);
+            this.dgvLogs.Name = "dgvLogs";
+            this.dgvLogs.ReadOnly = true;
+            this.dgvLogs.RowHeadersVisible = false;
+            this.dgvLogs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvLogs.Size = new System.Drawing.Size(670, 320);
+            this.dgvLogs.TabIndex = 4;
             // 
             // lblTitulo
             // 
@@ -105,13 +105,14 @@
             this.ClientSize = new System.Drawing.Size(734, 461);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.dgvLogProductos);
+            this.Controls.Add(this.dgvLogs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmLogProductos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Log de Productos";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLogProductos)).EndInit();
+            this.Load += new System.EventHandler(this.frmLogProductos_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLogs)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,7 +121,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnVolver;
-        private System.Windows.Forms.DataGridView dgvLogProductos;
+        private System.Windows.Forms.DataGridView dgvLogs;
         private System.Windows.Forms.Label lblTitulo;
     }
 }

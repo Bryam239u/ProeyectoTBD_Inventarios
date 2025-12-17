@@ -34,12 +34,12 @@
             this.dgvDetalles = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.numCantidad = new System.Windows.Forms.NumericUpDown();
+            this.nudCantidad = new System.Windows.Forms.NumericUpDown();
             this.cmbProducto = new System.Windows.Forms.ComboBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalles)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.SuspendLayout();
             // 
             // btnGuardar
@@ -55,6 +55,7 @@
             this.btnGuardar.TabIndex = 11;
             this.btnGuardar.Text = "Agregar Ítem";
             this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // dgvDetalles
             // 
@@ -113,19 +114,19 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Producto";
             // 
-            // numCantidad
+            // nudCantidad
             // 
-            this.numCantidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numCantidad.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.numCantidad.Location = new System.Drawing.Point(30, 165);
-            this.numCantidad.Maximum = new decimal(new int[] {
+            this.nudCantidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nudCantidad.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.nudCantidad.Location = new System.Drawing.Point(30, 165);
+            this.nudCantidad.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numCantidad.Name = "numCantidad";
-            this.numCantidad.Size = new System.Drawing.Size(240, 25);
-            this.numCantidad.TabIndex = 7;
+            this.nudCantidad.Name = "nudCantidad";
+            this.nudCantidad.Size = new System.Drawing.Size(240, 25);
+            this.nudCantidad.TabIndex = 7;
             // 
             // cmbProducto
             // 
@@ -175,7 +176,7 @@
             this.Controls.Add(this.dgvDetalles);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.numCantidad);
+            this.Controls.Add(this.nudCantidad);
             this.Controls.Add(this.cmbProducto);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -183,8 +184,9 @@
             this.Name = "frmDetallesMovimientos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detalles de Movimiento";
+            this.Load += new System.EventHandler(this.frmDetallesMovimientos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalles)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,7 +198,7 @@
         private System.Windows.Forms.DataGridView dgvDetalles;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numCantidad;
+        private System.Windows.Forms.NumericUpDown nudCantidad;
         private System.Windows.Forms.ComboBox cmbProducto;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Button btnCerrar;

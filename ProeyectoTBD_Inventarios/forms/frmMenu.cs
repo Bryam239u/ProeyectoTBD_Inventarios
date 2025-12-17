@@ -43,7 +43,7 @@ namespace ProeyectoTBD_Inventarios.forms
 
         private void button4_Click(object sender, EventArgs e)
         {
-            frmDetallesMovimientos detallesMovimientos = new frmDetallesMovimientos();
+            frmDetallesMovimientos detallesMovimientos = new frmDetallesMovimientos(1);
             detallesMovimientos.ShowDialog();
         }
 
@@ -55,8 +55,8 @@ namespace ProeyectoTBD_Inventarios.forms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            frmInventarios inventarios = new frmInventarios();
-            inventarios.ShowDialog();
+            frmLogProductos logs = new frmLogProductos();
+            logs.ShowDialog();
         }
 
         private void button6_Click(object sender, EventArgs e)
