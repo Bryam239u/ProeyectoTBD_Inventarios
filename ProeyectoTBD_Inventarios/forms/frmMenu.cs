@@ -28,5 +28,40 @@ namespace ProeyectoTBD_Inventarios.forms
             frmProductos productos = new frmProductos();
             productos.ShowDialog();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            frmCategorias categorias = new frmCategorias();
+            categorias.ShowDialog();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            frmMovimientos movimientos = new frmMovimientos();
+            movimientos.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            frmDetallesMovimientos detallesMovimientos = new frmDetallesMovimientos();
+            detallesMovimientos.ShowDialog();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            frmInventarios inventarios = new frmInventarios();
+            inventarios.ShowDialog();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            frmSesiones sesiones = new frmSesiones();
+            sesiones.ShowDialog();
+        }
     }
 }
