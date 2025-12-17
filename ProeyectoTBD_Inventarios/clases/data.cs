@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ProeyectoTBD_Inventarios.clases
 {
@@ -12,7 +13,7 @@ namespace ProeyectoTBD_Inventarios.clases
     {
         private const string WalletPath = @"C:\Users\sleepyy\Desktop\Wallet_TBD2025";
 
-        private const string DbUser = "ADMIN";
+        private const string DbUser = "INVENTARIOS_ALMACENES";
         private const string DbPassword = "Sandoval_239u";
 
         private const string TnsName = "tbd2025_high";
@@ -21,9 +22,17 @@ namespace ProeyectoTBD_Inventarios.clases
 
         private OracleConnection GetConnection()
         {
-            OracleConnection conn = new OracleConnection(connectionString);
-            conn.Open();
-            return conn;
+            try
+            {
+                OracleConnection conn = new OracleConnection(connectionString);
+                conn.Open();
+                return conn;
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Error al conectar a la base de datos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception($"Error al conectar a la base de datos: {ex.Message}"); 
+            }
         }
 
         public DataTable EjecutarConsulta(string sqlQuery)
