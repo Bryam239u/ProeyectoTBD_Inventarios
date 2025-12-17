@@ -365,5 +365,80 @@ namespace ProeyectoTBD_Inventarios.clases
             }
         }
 
+        // --- GESTIÓN DE PRODUCTOS ---
+
+        // Método 1: Insertar Producto
+        // Recibe los tipos de datos correctos (decimal para precio, int para FK)
+        public string InsertarProducto(string sku, string nombre, string descripcion, decimal precio, int idCategoria, int activo)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    string sql = @"
+                INSERT INTO Productos (Sku, Nombre, Descripcion, PrecioUnitario, IdCategoria, Activo) 
+                VALUES (:Sku, :Nombre, :Descrip, :Precio, :IdCat, 1)";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        cmd.Parameters.Add("Sku", OracleDbType.Varchar2).Value = sku;
+                        cmd.Parameters.Add("Nombre", OracleDbType.Varchar2).Value = nombre;
+                        cmd.Parameters.Add("Descrip", OracleDbType.Varchar2).Value = descripcion;
+                        cmd.Parameters.Add("Precio", OracleDbType.Decimal).Value = precio;
+                        cmd.Parameters.Add("IdCat", OracleDbType.Int32).Value = idCategoria;
+                        cmd.Parameters.Add("Activo", OracleDbType.Int32).Value = activo;
+
+                        cmd.ExecuteNonQuery();
+                        return "OK";
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    // Código 1: Violación de restricción única (El SKU ya existe)
+                    if (ex.Number == 1)
+                    {
+                        return "Error: El código SKU '" + sku + "' ya existe en el sistema.";
+                    }
+                    return "Error de base de datos: " + ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    return "Error: " + ex.Message;
+                }
+            }
+        }
+
+        // Método 2: Mostrar Productos (Con JOIN para ver el nombre de la categoría)
+        public DataTable ObtenerProductos()
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                // Seleccionamos campos clave y hacemos JOIN con Categorias
+                // para mostrar el nombre de la categoría en lugar del ID.
+                string sql = @"
+                SELECT 
+                p.Sku AS ""Código"",
+                p.Nombre AS ""Producto"",
+                p.PrecioUnitario AS ""Precio"",
+                c.Nombre AS ""Categoría"",
+                p.Descripcion AS ""Descripción""
+                p.Activo AS ""Activo""
+                FROM Productos p
+                LEFT JOIN Categorias c ON p.IdCategoria = c.IdCategoria
+                WHERE p.Activo = 1
+                ORDER BY p.Nombre ASC";
+
+                using (OracleCommand cmd = new OracleCommand(sql, conn))
+                {
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
     }
 }
