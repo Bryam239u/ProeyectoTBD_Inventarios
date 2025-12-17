@@ -471,5 +471,91 @@ namespace ProeyectoTBD_Inventarios.clases
             }
         }
 
+
+        // --- GESTIÓN DE MOVIMIENTOS ---
+
+        // MÉTODO 3: Listar Movimientos (Para el DataGridView)
+        public DataTable ObtenerMovimientos()
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    string sql = @"
+                SELECT 
+                    IdMovimiento, 
+                    IdSesion, 
+                    TipoMovimiento, 
+                    Fecha, 
+                    IdAlmacenOrigen, 
+                    IdAlmacenDestino, 
+                    Observaciones 
+                FROM Movimientos 
+                ORDER BY IdMovimiento DESC";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            return dt;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    return new DataTable();
+                }
+            }
+        }
+
+        // MÉTODO 4: Insertar Movimiento
+        // Nota: Usamos int? (nullable) para los almacenes, ya que pueden ser null
+        public string InsertarMovimiento(int idSesion, string tipo, DateTime fecha, int? idOrigen, int? idDestino, string observaciones)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    string sql = @"
+                INSERT INTO Movimientos 
+                (IdSesion, TipoMovimiento, Fecha, IdAlmacenOrigen, IdAlmacenDestino, Observaciones)
+                VALUES 
+                (:IdSesion, :Tipo, :Fecha, :IdOrigen, :IdDestino, :Obs)";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        cmd.Parameters.Add("IdSesion", OracleDbType.Int32).Value = idSesion;
+                        cmd.Parameters.Add("Tipo", OracleDbType.Char).Value = tipo;
+                        cmd.Parameters.Add("Fecha", OracleDbType.TimeStamp).Value = fecha;
+
+                        // Lógica para manejar NULLs en Oracle
+                        if (idOrigen.HasValue)
+                            cmd.Parameters.Add("IdOrigen", OracleDbType.Int32).Value = idOrigen.Value;
+                        else
+                            cmd.Parameters.Add("IdOrigen", OracleDbType.Int32).Value = DBNull.Value;
+
+                        if (idDestino.HasValue)
+                            cmd.Parameters.Add("IdDestino", OracleDbType.Int32).Value = idDestino.Value;
+                        else
+                            cmd.Parameters.Add("IdDestino", OracleDbType.Int32).Value = DBNull.Value;
+
+                        cmd.Parameters.Add("Obs", OracleDbType.Varchar2).Value = observaciones;
+
+                        cmd.ExecuteNonQuery();
+                        return "OK";
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    return $"Error Oracle: {ex.Message}";
+                }
+                catch (Exception ex)
+                {
+                    return $"Error: {ex.Message}";
+                }
+            }
+        }
     }
 }
