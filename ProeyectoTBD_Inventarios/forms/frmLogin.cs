@@ -54,40 +54,45 @@ namespace ProeyectoTBD_Inventarios
 
         private void button2_Click(object sender, EventArgs e)
         {
-            // 1. Validar campos vacíos
-            if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
+            // Limpiamos espacios en blanco por si acaso el usuario metió un espacio al final sin querer
+            string user = txtUsuario.Text.Trim();
+            string pass = txtPassword.Text; // La contraseña NO se trimea usualmente, pero si quieres, ponle .Trim()
+
+            if (user == "" || pass == "")
             {
-                MessageBox.Show("Ingrese usuario y contraseña.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Escribe usuario y contraseña.");
                 return;
             }
 
-            // 2. Instanciar tu clase data
             data db = new data();
 
-            // 3. Validar credenciales
-            int idUsuario = db.ValidarLogin(textBox1.Text.Trim(), textBox2.Text);
+            // Llamamos a nuestro método "manual"
+            int resultado = db.ValidarLogin(user, pass);
 
-            if (idUsuario > 0)
+            if (resultado > 0)
             {
-                // -- LOGIN CORRECTO --
+                // --- ÉXITO ---
+                MessageBox.Show("¡Login Correcto! ID Usuario: " + resultado);
 
-                // 4. Registrar la sesión en la BD
-                int idSesion = db.RegistrarSesion(idUsuario);
+                // Registrar la sesión (esto ya lo tenías y funcionaba aparte)
+                db.RegistrarSesion(resultado);
 
-                // IMPORTANTE: Guarda idSesion en una variable global o estática 
-                // para usarla cuando el usuario cierre el programa (Update FechaFin).
-                // Ejemplo: Program.SesionActualId = idSesion;
-
-                MessageBox.Show("Bienvenido al sistema.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // 5. Abrir el menú principal y cerrar login
-                // frmMenuPrincipal menu = new frmMenuPrincipal();
-                // menu.Show();
+                // Ocultar login y mostrar menú
                 this.Hide();
+                 frmMenu menu = new frmMenu(); 
+                 menu.Show();
+            }
+            else if (resultado == -1)
+            {
+                MessageBox.Show("El usuario es correcto, pero la contraseña está mal.", "Error de Password");
+            }
+            else if (resultado == 0)
+            {
+                MessageBox.Show("No se encontró ese nombre de usuario en la base de datos.", "Usuario no existe");
             }
             else
             {
-                MessageBox.Show("Usuario o contraseña incorrectos.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error de conexión o base de datos.", "Error Crítico");
             }
         }
     }

@@ -63,5 +63,10 @@ namespace ProeyectoTBD_Inventarios.forms
             frmSesiones sesiones = new frmSesiones();
             sesiones.ShowDialog();
         }
+
+        private void btnOut_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -161,34 +161,63 @@ namespace ProeyectoTBD_Inventarios.clases
 
         // MÉTODO 1: Verificar si el usuario existe y la contraseña es correcta
         // Retorna el IdUsuario si es correcto, o -1 si falla.
-        public int ValidarLogin(string username, string password)
+        public int ValidarLogin(string usuarioIngresado, string passwordIngresado)
         {
+            // 1. Iniciamos la conexión
             using (OracleConnection conn = GetConnection())
             {
                 try
                 {
-                    // Consultamos el ID si el usuario coincide, la pass coincide y el estado es 'A'ctivo
-                    string sql = "SELECT IdUsuario FROM Usuarios WHERE Username = :User AND PasswordHash = :Pass AND Estado = 'A'";
+                    // 2. Consulta SIMPLE. Solo buscamos por el nombre de usuario.
+                    // NO verificamos la contraseña en el SQL para evitar errores de Oracle.
+                    string sql = "SELECT IdUsuario, PasswordHash FROM Usuarios WHERE Username = :userParam";
 
                     using (OracleCommand cmd = new OracleCommand(sql, conn))
                     {
-                        cmd.Parameters.Add("User", OracleDbType.Varchar2).Value = username;
-                        cmd.Parameters.Add("Pass", OracleDbType.Varchar2).Value = password;
+                        // Aseguramos que el parámetro se enlace bien
+                        cmd.Parameters.Add(new OracleParameter("userParam", usuarioIngresado));
 
-                        object result = cmd.ExecuteScalar();
-
-                        if (result != null)
+                        // 3. Ejecutamos el lector
+                        using (OracleDataReader reader = cmd.ExecuteReader())
                         {
-                            return Convert.ToInt32(result); // Login exitoso, retornamos ID
+                            // 4. ¿Encontró al usuario?
+                            if (reader.Read())
+                            {
+                                // SÍ existe el usuario. Ahora extraemos los datos.
+                                // Obtenemos el ID
+                                int idDeLaBD = int.Parse(reader["IdUsuario"].ToString());
+
+                                // Obtenemos la contraseña que está guardada en la BD
+                                string passwordDeLaBD = reader["PasswordHash"].ToString();
+
+                                // 5. COMPARACIÓN MANUAL EN C#
+                                // Aquí comparamos texto con texto. Sin trucos.
+                                if (passwordDeLaBD == passwordIngresado)
+                                {
+                                    // ¡Coinciden! Retornamos el ID.
+                                    return idDeLaBD;
+                                }
+                                else
+                                {
+                                    // El usuario existe, pero la contraseña no coincide.
+                                    // Retornamos -1 para indicarlo.
+                                    return -1;
+                                }
+                            }
+                            else
+                            {
+                                // No encontró ningún registro con ese usuario.
+                                return 0;
+                            }
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Puedes loguear el error aquí si quieres
-                    return -1;
+                    // Si algo explota, muestra el error en la consola de salida de Visual Studio
+                    System.Diagnostics.Debug.WriteLine("Error en Login: " + ex.Message);
+                    return -99; // Error de sistema
                 }
-                return -1; // Login fallido
             }
         }
 
@@ -249,6 +278,59 @@ namespace ProeyectoTBD_Inventarios.clases
             }
             catch { return "Desconocida"; }
         }
+
+        // --- GESTIÓN DE CATEGORÍAS ---
+
+        // Método 1: Insertar nueva categoría
+        public string InsertarCategoria(string nombreCategoria)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    // SQL simple para insertar. El ID se genera solo (IDENTITY).
+                    string sql = "INSERT INTO Categorias (Nombre) VALUES (:Nombre)";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        // Usamos parámetros para evitar problemas con caracteres especiales
+                        cmd.Parameters.Add("Nombre", OracleDbType.Varchar2).Value = nombreCategoria;
+
+                        cmd.ExecuteNonQuery();
+                        return "OK";
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    return "Error de Oracle: " + ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    return "Error: " + ex.Message;
+                }
+            }
+        }
+
+        // Método 2: Obtener todas las categorías para la tabla
+        public DataTable ObtenerCategorias()
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                // Traemos ID y Nombre. Ordenamos por ID para verlas en orden.
+                string sql = "SELECT IdCategoria, Nombre FROM Categorias ORDER BY IdCategoria ASC";
+
+                using (OracleCommand cmd = new OracleCommand(sql, conn))
+                {
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
 
     }
 }
