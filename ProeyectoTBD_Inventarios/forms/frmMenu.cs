@@ -49,7 +49,8 @@ namespace ProeyectoTBD_Inventarios.forms
 
         private void button5_Click(object sender, EventArgs e)
         {
-            
+            frmUsuarios usuarios = new frmUsuarios();
+            usuarios.ShowDialog();
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -66,7 +67,7 @@ namespace ProeyectoTBD_Inventarios.forms
 
         private void btnOut_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Dispose();
         }
     }
 }

@@ -29,25 +29,21 @@
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.labelTitle = new System.Windows.Forms.Label();
-            this.lblCat = new System.Windows.Forms.Label();
-            this.lblOps = new System.Windows.Forms.Label();
             this.lblAdmin = new System.Windows.Forms.Label();
-
-            // Botones (Manteniendo nombres originales para evitar errores en el backend)
-            this.button1 = new System.Windows.Forms.Button(); // Almacenes
-            this.button2 = new System.Windows.Forms.Button(); // Productos
-            this.button3 = new System.Windows.Forms.Button(); // Categorías
-            this.button8 = new System.Windows.Forms.Button(); // Movimientos
-            this.button4 = new System.Windows.Forms.Button(); // Detalles
-            this.button7 = new System.Windows.Forms.Button(); // Inventarios
-            this.button5 = new System.Windows.Forms.Button(); // Usuarios
-            this.button6 = new System.Windows.Forms.Button(); // Sesiones
-            this.btnOut = new System.Windows.Forms.Button();  // Log out
-
+            this.lblOps = new System.Windows.Forms.Label();
+            this.lblCat = new System.Windows.Forms.Label();
+            this.btnOut = new System.Windows.Forms.Button();
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.SuspendLayout();
-
             // 
             // panelMenu
             // 
@@ -57,25 +53,68 @@
             this.panelMenu.Controls.Add(this.lblCat);
             this.panelMenu.Controls.Add(this.btnOut);
             this.panelMenu.Controls.Add(this.labelTitle);
-
-            // Agregando botones en orden lógico
-            this.panelMenu.Controls.Add(this.button1); // Almacenes
-            this.panelMenu.Controls.Add(this.button3); // Categorías
-            this.panelMenu.Controls.Add(this.button2); // Productos
-
-            this.panelMenu.Controls.Add(this.button8); // Movimientos
-            this.panelMenu.Controls.Add(this.button4); // Detalles
-
-            this.panelMenu.Controls.Add(this.button7); // Inventarios
-            this.panelMenu.Controls.Add(this.button5); // Usuarios
-            this.panelMenu.Controls.Add(this.button6); // Sesiones
-
+            this.panelMenu.Controls.Add(this.button1);
+            this.panelMenu.Controls.Add(this.button3);
+            this.panelMenu.Controls.Add(this.button2);
+            this.panelMenu.Controls.Add(this.button8);
+            this.panelMenu.Controls.Add(this.button4);
+            this.panelMenu.Controls.Add(this.button7);
+            this.panelMenu.Controls.Add(this.button5);
+            this.panelMenu.Controls.Add(this.button6);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(280, 520);
+            this.panelMenu.Size = new System.Drawing.Size(329, 520);
             this.panelMenu.TabIndex = 0;
-
+            // 
+            // lblAdmin
+            // 
+            this.lblAdmin.AutoSize = true;
+            this.lblAdmin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblAdmin.ForeColor = System.Drawing.Color.Silver;
+            this.lblAdmin.Location = new System.Drawing.Point(25, 310);
+            this.lblAdmin.Name = "lblAdmin";
+            this.lblAdmin.Size = new System.Drawing.Size(111, 15);
+            this.lblAdmin.TabIndex = 0;
+            this.lblAdmin.Text = "ADMINISTRACIÓN";
+            // 
+            // lblOps
+            // 
+            this.lblOps.AutoSize = true;
+            this.lblOps.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblOps.ForeColor = System.Drawing.Color.Silver;
+            this.lblOps.Location = new System.Drawing.Point(25, 205);
+            this.lblOps.Name = "lblOps";
+            this.lblOps.Size = new System.Drawing.Size(87, 15);
+            this.lblOps.TabIndex = 1;
+            this.lblOps.Text = "OPERACIONES";
+            // 
+            // lblCat
+            // 
+            this.lblCat.AutoSize = true;
+            this.lblCat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblCat.ForeColor = System.Drawing.Color.Silver;
+            this.lblCat.Location = new System.Drawing.Point(25, 65);
+            this.lblCat.Name = "lblCat";
+            this.lblCat.Size = new System.Drawing.Size(75, 15);
+            this.lblCat.TabIndex = 2;
+            this.lblCat.Text = "CATÁLOGOS";
+            // 
+            // btnOut
+            // 
+            this.btnOut.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOut.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnOut.FlatAppearance.BorderSize = 0;
+            this.btnOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOut.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnOut.ForeColor = System.Drawing.Color.IndianRed;
+            this.btnOut.Location = new System.Drawing.Point(0, 480);
+            this.btnOut.Name = "btnOut";
+            this.btnOut.Size = new System.Drawing.Size(329, 40);
+            this.btnOut.TabIndex = 9;
+            this.btnOut.Text = "Cerrar Sesión";
+            this.btnOut.UseVisualStyleBackColor = true;
+            this.btnOut.Click += new System.EventHandler(this.btnOut_Click);
             // 
             // labelTitle
             // 
@@ -84,22 +123,12 @@
             this.labelTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
             this.labelTitle.Location = new System.Drawing.Point(20, 20);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(117, 30);
+            this.labelTitle.Size = new System.Drawing.Size(169, 30);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Menú Principal";
-
             // 
-            // SECCIÓN: CATÁLOGOS
+            // button1
             // 
-            this.lblCat.AutoSize = true;
-            this.lblCat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblCat.ForeColor = System.Drawing.Color.Silver;
-            this.lblCat.Location = new System.Drawing.Point(25, 65);
-            this.lblCat.Name = "lblCat";
-            this.lblCat.Size = new System.Drawing.Size(75, 15);
-            this.lblCat.Text = "CATÁLOGOS";
-
-            // button1 (Almacenes)
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -113,8 +142,9 @@
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-
-            // button3 (Categorías)
+            // 
+            // button3
+            // 
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -128,8 +158,9 @@
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-
-            // button2 (Productos)
+            // 
+            // button2
+            // 
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -143,19 +174,9 @@
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-
             // 
-            // SECCIÓN: OPERACIONES
+            // button8
             // 
-            this.lblOps.AutoSize = true;
-            this.lblOps.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblOps.ForeColor = System.Drawing.Color.Silver;
-            this.lblOps.Location = new System.Drawing.Point(25, 205);
-            this.lblOps.Name = "lblOps";
-            this.lblOps.Size = new System.Drawing.Size(86, 15);
-            this.lblOps.Text = "OPERACIONES";
-
-            // button8 (Movimientos)
             this.button8.FlatAppearance.BorderSize = 0;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -169,8 +190,9 @@
             this.button8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
-
-            // button4 (Detalle Movimientos)
+            // 
+            // button4
+            // 
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -184,19 +206,9 @@
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-
             // 
-            // SECCIÓN: ADMINISTRACIÓN
+            // button7
             // 
-            this.lblAdmin.AutoSize = true;
-            this.lblAdmin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblAdmin.ForeColor = System.Drawing.Color.Silver;
-            this.lblAdmin.Location = new System.Drawing.Point(25, 310);
-            this.lblAdmin.Name = "lblAdmin";
-            this.lblAdmin.Size = new System.Drawing.Size(108, 15);
-            this.lblAdmin.Text = "ADMINISTRACIÓN";
-
-            // button7 (Inventarios)
             this.button7.FlatAppearance.BorderSize = 0;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -210,8 +222,9 @@
             this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
-
-            // button5 (Usuarios)
+            // 
+            // button5
+            // 
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -225,8 +238,9 @@
             this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
-
-            // button6 (Sesiones)
+            // 
+            // button6
+            // 
             this.button6.FlatAppearance.BorderSize = 0;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -240,31 +254,13 @@
             this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
-
-            // 
-            // btnOut (Log Out)
-            // 
-            this.btnOut.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnOut.FlatAppearance.BorderSize = 0;
-            this.btnOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOut.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnOut.ForeColor = System.Drawing.Color.IndianRed;
-            this.btnOut.Location = new System.Drawing.Point(0, 480);
-            this.btnOut.Name = "btnOut";
-            this.btnOut.Size = new System.Drawing.Size(280, 40);
-            this.btnOut.TabIndex = 9;
-            this.btnOut.Text = "Cerrar Sesión";
-            this.btnOut.UseVisualStyleBackColor = true;
-            this.btnOut.Click += new System.EventHandler(this.btnOut_Click);
-            this.btnOut.Cursor = System.Windows.Forms.Cursors.Hand;
-
             // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(280, 520);
+            this.ClientSize = new System.Drawing.Size(329, 520);
             this.Controls.Add(this.panelMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

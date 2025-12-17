@@ -80,7 +80,11 @@ namespace ProeyectoTBD_Inventarios
                 // Ocultar login y mostrar menú
                 this.Hide();
                  frmMenu menu = new frmMenu(); 
-                 menu.Show();
+                 menu.ShowDialog();
+                if (menu.IsDisposed)
+                {
+                    this.Close(); return;
+                }
             }
             else if (resultado == -1)
             {

@@ -32,11 +32,6 @@ namespace ProeyectoTBD_Inventarios.forms
             this.Close();
         }
 
-        private void frmCategorias_Load(object sender, EventArgs e)
-        {
-            CargarTabla();
-        }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             // 1. Validar que no esté vacío
@@ -69,6 +64,11 @@ namespace ProeyectoTBD_Inventarios.forms
             // Botón cancelar: Limpia o cierra, según prefieras
             txtbNombre.Clear();
             this.Close();
+        }
+
+        private void frmCategorias_Load_1(object sender, EventArgs e)
+        {
+            CargarTabla();
         }
     }
 }
