@@ -1,16 +1,14 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProeyectoTBD_Inventarios.clases
 {
     internal class data
     {
-        private const string WalletPath = @"C:\Users\jaram\OneDrive\Escritorio\Wallet_TBD2025";
+
+
+        private const string WalletPath = @"C:\Users\Admin\Downloads\Wallet_TBD2025";
 
         private const string DbUser = "ADMIN";
         private const string DbPassword = "Sandoval_239u";

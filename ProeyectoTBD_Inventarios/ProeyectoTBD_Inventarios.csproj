@@ -136,5 +136,10 @@
   <ItemGroup>
     <Folder Include="forms\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Imagenes\registro_fondo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
