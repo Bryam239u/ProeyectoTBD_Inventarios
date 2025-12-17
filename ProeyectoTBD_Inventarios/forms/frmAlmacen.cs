@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProeyectoTBD_Inventarios.forms.formsAuxiliares;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,17 +11,22 @@ using System.Windows.Forms;
 
 namespace ProeyectoTBD_Inventarios.forms
 {
-    public partial class frmMenu : Form
+    public partial class frmAlmacen : Form
     {
-        public frmMenu()
+        public frmAlmacen()
         {
             InitializeComponent();
         }
 
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            frmAlmacen almacen = new frmAlmacen();
-            almacen.ShowDialog();
+            frmAgregarAlmacen agregarAlmacen = new frmAgregarAlmacen();
+            agregarAlmacen.ShowDialog();
         }
     }
 }

@@ -84,6 +84,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clases\data.cs" />
+    <Compile Include="forms\formsAuxiliares\frmAgregarAlmacen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\formsAuxiliares\frmAgregarAlmacen.Designer.cs">
+      <DependentUpon>frmAgregarAlmacen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\frmAlmacen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmAlmacen.Designer.cs">
+      <DependentUpon>frmAlmacen.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +116,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="forms\formsAuxiliares\frmAgregarAlmacen.resx">
+      <DependentUpon>frmAgregarAlmacen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\frmAlmacen.resx">
+      <DependentUpon>frmAlmacen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>

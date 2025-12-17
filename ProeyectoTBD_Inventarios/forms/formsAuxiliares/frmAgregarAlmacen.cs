@@ -8,19 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ProeyectoTBD_Inventarios.forms
+namespace ProeyectoTBD_Inventarios.forms.formsAuxiliares
 {
-    public partial class frmMenu : Form
+    public partial class frmAgregarAlmacen : Form
     {
-        public frmMenu()
+        public frmAgregarAlmacen()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
-            frmAlmacen almacen = new frmAlmacen();
-            almacen.ShowDialog();
+            this.Close();
         }
     }
 }
