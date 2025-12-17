@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace ProeyectoTBD_Inventarios
 {
-    public partial class Form1 : Form
+    public partial class frmLogin : Form
     {
         data data = new data();
-        public Form1()
+        public frmLogin()
         {
             InitializeComponent();
         }
@@ -38,6 +38,11 @@ namespace ProeyectoTBD_Inventarios
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
