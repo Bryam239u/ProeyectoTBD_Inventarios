@@ -84,6 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clases\data.cs" />
+    <Compile Include="forms\frmAgregarInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmAgregarInventario.Designer.cs">
+      <DependentUpon>frmAgregarInventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\frmInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="forms\frmAgregarInventario.resx">
+      <DependentUpon>frmAgregarInventario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\frmInventario.resx">
       <DependentUpon>frmInventario.cs</DependentUpon>
     </EmbeddedResource>
