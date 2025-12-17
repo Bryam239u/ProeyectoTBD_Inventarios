@@ -331,6 +331,145 @@ namespace ProeyectoTBD_Inventarios.clases
             }
         }
 
+        // --- GESTIÓN DE ALMACENES ---
+        public string InsertarAlmacen(string nombre, string ubicacion, int activo)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    // Query de inserción. No insertamos IdAlmacen porque es IDENTITY (automático)
+                    string sql = "INSERT INTO Almacenes (Nombre, Ubicacion, Activo) VALUES (:Nombre, :Ubicacion, :Activo)";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        // BindByName es importante si el orden de parámetros llegara a cambiar
+                        cmd.BindByName = true;
+
+                        cmd.Parameters.Add("Nombre", OracleDbType.Varchar2).Value = nombre;
+                        cmd.Parameters.Add("Ubicacion", OracleDbType.Varchar2).Value = ubicacion;
+                        // Activo espera un número (1 o 0)
+                        cmd.Parameters.Add("Activo", OracleDbType.Int32).Value = activo;
+
+                        cmd.ExecuteNonQuery();
+                        return "OK";
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    return "Error Oracle: " + ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    return "Error General: " + ex.Message;
+                }
+            }
+        }
+
+        // METODO 2: Traer datos para la tabla (DataGridView)
+        public DataTable ObtenerAlmacenes()
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    // Seleccionamos todo. Usamos DECODE o CASE para que 'Activo' se lea bonito si quieres, 
+                    // o lo traemos crudo y lo formatea el DataGrid. Aquí lo traigo directo.
+                    string sql = "SELECT IdAlmacen, Nombre, Ubicacion, Activo FROM Almacenes ORDER BY IdAlmacen ASC";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            return dt;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    // En caso de error retornamos una tabla vacía para no romper el programa
+                    return new DataTable();
+                }
+            }
+        }
+
+
+        // --- GESTIÓN DE PRODUCTOS ---
+
+        // Método 1: Insertar Producto
+        // Recibe los tipos de datos correctos (decimal para precio, int para FK)
+        public string InsertarProducto(string sku, string nombre, string descripcion, double precio, int idCategoria, int activo)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    string sql = @"
+                INSERT INTO Productos (Sku, Nombre, Descripcion, PrecioUnitario, IdCategoria, Activo) 
+                VALUES (:Sku, :Nombre, :Descrip, :Precio, :IdCat, :Activo)";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        cmd.Parameters.Add("Sku", OracleDbType.Varchar2).Value = sku;
+                        cmd.Parameters.Add("Nombre", OracleDbType.Varchar2).Value = nombre;
+                        cmd.Parameters.Add("Descrip", OracleDbType.Varchar2).Value = descripcion;
+                        cmd.Parameters.Add("Precio", OracleDbType.Decimal).Value = precio;
+                        cmd.Parameters.Add("IdCat", OracleDbType.Int32).Value = idCategoria;
+                        cmd.Parameters.Add("Activo", OracleDbType.Int32).Value = activo;
+
+                        cmd.ExecuteNonQuery();
+                        return "OK";
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    // Código 1: Violación de restricción única (El SKU ya existe)
+                    if (ex.Number == 1)
+                    {
+                        return "Error: El código SKU '" + sku + "' ya existe en el sistema.";
+                    }
+                    return "Error de base de datos: " + ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    return "Error: " + ex.Message;
+                }
+            }
+        }
+
+        // Método 2: Mostrar Productos (Con JOIN para ver el nombre de la categoría)
+        public DataTable ObtenerProductos()
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                // Seleccionamos campos clave y hacemos JOIN con Categorias
+                // para mostrar el nombre de la categoría en lugar del ID.
+                string sql = @"
+                SELECT 
+                p.Sku AS ""Código"",
+                p.Nombre AS ""Producto"",
+                p.Descripcion AS ""Descripción"",
+                p.PrecioUnitario AS ""Precio"",
+                c.Nombre AS ""Categoría"",
+                p.Activo AS ""Activo""
+                FROM Productos p
+                LEFT JOIN Categorias c ON p.IdCategoria = c.IdCategoria
+                WHERE p.Activo = 1
+                ORDER BY p.Nombre ASC";
+
+                using (OracleCommand cmd = new OracleCommand(sql, conn))
+                {
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
 
     }
 }

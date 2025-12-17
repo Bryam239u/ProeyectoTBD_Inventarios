@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProeyectoTBD_Inventarios.clases;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +18,15 @@ namespace ProeyectoTBD_Inventarios.forms
             InitializeComponent();
         }
 
+        private void CargarGrid()
+        {
+            data db = new data();
+            DataTable dt = db.ObtenerProductos();
+
+            // Asignar al DataGridView que tienes en el centro
+            dataGridView1.DataSource = dt;
+        }
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -26,6 +36,15 @@ namespace ProeyectoTBD_Inventarios.forms
         {
             frmAgregarProductos agregarProductos = new frmAgregarProductos();
             agregarProductos.ShowDialog();
+            if (agregarProductos.IsDisposed)
+            {
+                CargarGrid();
+            }
+        }
+
+        private void frmProductos_Load(object sender, EventArgs e)
+        {
+            CargarGrid();
         }
     }
 }
