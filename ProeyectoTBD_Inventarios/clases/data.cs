@@ -112,5 +112,42 @@ namespace ProeyectoTBD_Inventarios.clases
             }
         }
 
+        public string RegistrarUsuario(string username, string password)
+        {
+            // Usamos GetConnection que ya tienes configurado con tu Wallet
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    // Query con subconsulta para buscar el ID del rol automáticamente
+                    string sql = @"
+                    INSERT INTO Usuarios (Username, PasswordHash, IdRol, Estado)
+                    VALUES (:Username, :Password, (SELECT IdRol FROM Roles WHERE Nombre = 'usuario de consulta'), 'A')";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        // Usamos parámetros para seguridad
+                        cmd.Parameters.Add("Username", OracleDbType.Varchar2).Value = username;
+                        cmd.Parameters.Add("Password", OracleDbType.Varchar2).Value = password; 
+
+                        cmd.ExecuteNonQuery();
+                        return "OK"; // Retornamos código de éxito
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    // El error 1 es violación de restricción única (Usuario duplicado)
+                    if (ex.Number == 1)
+                    {
+                        return "El nombre de usuario ya existe.";
+                    }
+                    return $"Error de Oracle: {ex.Message}";
+                }
+                catch (Exception ex)
+                {
+                    return $"Error inesperado: {ex.Message}";
+                }
+            }
+        }
     }
 }
