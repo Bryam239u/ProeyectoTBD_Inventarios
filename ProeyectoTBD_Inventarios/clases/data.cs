@@ -250,5 +250,57 @@ namespace ProeyectoTBD_Inventarios.clases
             catch { return "Desconocida"; }
         }
 
+        // --- GESTIÓN DE CATEGORÍAS ---
+
+        // Método 1: Insertar nueva categoría
+        public string InsertarCategoria(string nombreCategoria)
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                try
+                {
+                    // SQL simple para insertar. El ID se genera solo (IDENTITY).
+                    string sql = "INSERT INTO Categorias (Nombre) VALUES (:Nombre)";
+
+                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    {
+                        // Usamos parámetros para evitar problemas con caracteres especiales
+                        cmd.Parameters.Add("Nombre", OracleDbType.Varchar2).Value = nombreCategoria;
+
+                        cmd.ExecuteNonQuery();
+                        return "OK";
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    return "Error de Oracle: " + ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    return "Error: " + ex.Message;
+                }
+            }
+        }
+
+        // Método 2: Obtener todas las categorías para la tabla
+        public DataTable ObtenerCategorias()
+        {
+            using (OracleConnection conn = GetConnection())
+            {
+                // Traemos ID y Nombre. Ordenamos por ID para verlas en orden.
+                string sql = "SELECT IdCategoria, Nombre FROM Categorias ORDER BY IdCategoria ASC";
+
+                using (OracleCommand cmd = new OracleCommand(sql, conn))
+                {
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
     }
 }
