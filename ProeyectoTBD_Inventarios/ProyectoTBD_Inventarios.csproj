@@ -143,6 +143,9 @@
     <EmbeddedResource Include="forms\formsAuxiliares\frmAgregarAlmacen.resx">
       <DependentUpon>frmAgregarAlmacen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forms\formsAuxiliares\frmAgregarMovimientos.resx">
+      <DependentUpon>frmAgregarMovimientos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\frmAlmacen.resx">
       <DependentUpon>frmAlmacen.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,6 +157,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\formsAuxiliares\frmAgregarProductos.resx">
       <DependentUpon>frmAgregarProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\frmMovimientos.resx">
+      <DependentUpon>frmMovimientos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\frmProductos.resx">
       <DependentUpon>frmProductos.cs</DependentUpon>
