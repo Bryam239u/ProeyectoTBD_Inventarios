@@ -110,6 +110,12 @@
     <Compile Include="Form\Registro.Designer.cs">
       <DependentUpon>Registro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sesiones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sesiones.Designer.cs">
+      <DependentUpon>Sesiones.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form\DetalleMovimiento.resx">
       <DependentUpon>DetalleMovimiento.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +136,9 @@
     </Compile>
     <EmbeddedResource Include="Form\Registro.resx">
       <DependentUpon>Registro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sesiones.resx">
+      <DependentUpon>Sesiones.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Oracle.DataAccess.Common.Configuration.Section.xsd">
       <SubType>Designer</SubType>
